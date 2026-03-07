@@ -7,6 +7,6 @@ on:
 
 jobs:
   hello:
-    runs-on: [rise, ubuntu-24.04-riscv]
+    runs-on: ubuntu-24.04-riscv
     steps:
       - run: echo "hello from $(uname -m)"
