@@ -11,6 +11,24 @@ jobs:
     steps:
       - run: echo "hello from $(uname -m)"
 
+  setup-python:
+    runs-on: ubuntu-24.04-riscv
+    strategy:
+      matrix:
+        python-version:
+          # - "3.14.2"
+          # - "3.13.12"
+          # - "3.12.0-rc.3"
+          - "3.11.13"
+    steps:
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: riseproject-dev/setup-python@main
+        with:
+          python-version: ${{ matrix.python-version }}
+          mirror: https://raw.githubusercontent.com/riseproject-dev/python-versions/main
+
+      - run: python --version
+
   sccache:
     runs-on: ubuntu-24.04-riscv
     steps:
