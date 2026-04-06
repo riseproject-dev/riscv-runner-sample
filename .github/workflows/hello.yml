@@ -7,30 +7,54 @@ on:
 
 jobs:
   hello:
-    runs-on: ubuntu-24.04-riscv
+    runs-on: ${{ matrix.runs-on }}
+    strategy:
+      matrix:
+        runs-on: [ubuntu-24.04-riscv, ubuntu-24.04]
     steps:
       - run: echo "hello from $(uname -m)"
 
   setup-python:
-    runs-on: ubuntu-24.04-riscv
+    runs-on: ${{ matrix.runs-on }}
     strategy:
       matrix:
+        runs-on: [ubuntu-24.04-riscv, ubuntu-24.04]
         python-version:
-          # - "3.14.2"
-          # - "3.13.12"
-          # - "3.12.0-rc.3"
-          - "3.11.13"
+          - "3.14.2"
+          - "3.13.12"
+          - "3.13.0-rc.3"
+          - "3.12"
+          - "3"
+        freethreaded:
+          - false
+        include:
+          - runs-on: ubuntu-24.04-riscv
+            python-version: "3.14.2"
+            freethreaded: true
+          - runs-on: ubuntu-24.04-riscv
+            python-version: "3.14.2"
+            freethreaded: false
+          - runs-on: ubuntu-24.04
+            python-version: "3.14.2"
+            freethreaded: true
+          - runs-on: ubuntu-24.04
+            python-version: "3.14.2"
+            freethreaded: false
     steps:
       - name: Setup Python ${{ matrix.python-version }}
         uses: riseproject-dev/setup-python@main
         with:
           python-version: ${{ matrix.python-version }}
-          mirror: https://raw.githubusercontent.com/riseproject-dev/python-versions/main
+          freethreaded: ${{ matrix.freethreaded || false }}
+          mirror: ${{ matrix.runs-on == 'ubuntu-24.04-riscv' && 'https://raw.githubusercontent.com/riseproject-dev/python-versions/main' || '' }}
 
       - run: python --version
 
   sccache:
-    runs-on: ubuntu-24.04-riscv
+    runs-on: ${{ matrix.runs-on }}
+    strategy:
+      matrix:
+        runs-on: [ubuntu-24.04-riscv]
     steps:
       - name: Checkout code
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
