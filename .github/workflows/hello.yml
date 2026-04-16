@@ -14,6 +14,85 @@ jobs:
     steps:
       - run: echo "hello from $(uname -m)"
 
+  debug:
+    runs-on: ${{ matrix.runs-on }}
+    strategy:
+      matrix:
+        runs-on: [ubuntu-24.04-riscv, ubuntu-24.04, ubuntu-24.04-arm]
+    env:
+      GITHUB_CONTEXT: ${{ toJson(github) }}
+      # RUNNER_CONTEXT: ${{ toJson(runner) }}
+    steps:
+      - run: ps aux --forest
+      - run: cat /etc/hostname
+      - run: printenv
+      - run: dpkg --list
+      - run: apt-mark showmanual
+      - run: find /opt -maxdepth 5
+      - run: find /home/runner/actions-runner/cached/2.333.1/externals -maxdepth 3 || true
+      - run: >-
+          which
+          mvn
+          ant
+          gradle
+          java
+          python3
+          python
+          gh
+          kubectl
+          ninja
+          rustc
+          rustup
+          cargo
+          go
+      - run: >-
+          which
+          mvn
+          ant
+          gradle
+          java
+          python3
+          python
+          gh
+          kubectl
+          ninja
+          rustc
+          rustup
+          cargo
+          go
+          | xargs realpath
+      - run: >-
+          which
+          mvn
+          ant
+          gradle
+          java
+          python3
+          python
+          gh
+          kubectl
+          ninja
+          rustc
+          rustup
+          cargo
+          go
+          | xargs realpath
+          | xargs dpkg -S || true
+
+  debug-container:
+    runs-on: ${{ matrix.runs-on }}
+    strategy:
+      matrix:
+        runs-on: [ubuntu-24.04-riscv, ubuntu-24.04, ubuntu-24.04-arm]
+    container: ubuntu:24.04
+    env:
+      GITHUB_CONTEXT: ${{ toJson(github) }}
+      # RUNNER_CONTEXT: ${{ toJson(runner) }}
+    steps:
+      - run: printenv
+      - run: dpkg --list
+      - run: find /__e -maxdepth 3
+
   setup-python:
     runs-on: ${{ matrix.runs-on }}
     strategy:
