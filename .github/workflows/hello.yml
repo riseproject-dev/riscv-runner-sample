@@ -31,6 +31,7 @@ jobs:
       - run: find /opt -maxdepth 5
       - run: find /home/runner -maxdepth 5
       - run: find /home/runner/actions-runner/cached/2.*.*/externals -maxdepth 3 || true
+      - run: cat /home/runner/actions-runner/cached/2.*.*/bin/Runner.Listener.runtimeconfig.json
       - run: >-
           which
           mvn
