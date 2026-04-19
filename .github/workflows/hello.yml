@@ -95,6 +95,7 @@ jobs:
       - run: dpkg --list
       - run: find /__e -maxdepth 3
       - name: Setup Python 3.12
+        if: always()
         uses: riseproject-dev/setup-python@main
         with:
           python-version: 3.12
