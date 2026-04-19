@@ -30,7 +30,7 @@ jobs:
       - run: apt-mark showmanual
       - run: find /opt -maxdepth 5
       - run: find /home/runner -maxdepth 5
-      - run: find /home/runner/actions-runner/cached/2.333.1/externals -maxdepth 3 || true
+      - run: find /home/runner/actions-runner/cached/2.*.*/externals -maxdepth 3 || true
       - run: >-
           which
           mvn
