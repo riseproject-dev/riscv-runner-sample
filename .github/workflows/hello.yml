@@ -92,6 +92,11 @@ jobs:
       - run: printenv
       - run: dpkg --list
       - run: find /__e -maxdepth 3
+      - name: Setup Python 3.12
+        uses: riseproject-dev/setup-python@main
+        with:
+          python-version: 3.12
+          mirror: ${{ matrix.runs-on == 'ubuntu-24.04-riscv' && 'https://raw.githubusercontent.com/riseproject-dev/python-versions/main' || '' }}
 
   setup-python:
     runs-on: ${{ matrix.runs-on }}
