@@ -30,6 +30,9 @@ jobs:
       - run: printenv
       - run: dpkg --list
       - run: apt-mark showmanual
+      - run: ls -alh /opt/hostedtoolcache
+      - run: ls -alh /opt/hostedtoolcache/Python
+      - run: ls -alh /opt/hostedtoolcache/Python/*.*.*
       - run: find /opt -maxdepth 5
       - run: find /home/runner -maxdepth 5
       - run: find /home/runner/actions-runner/cached/2.*.*/externals -maxdepth 3 || true
