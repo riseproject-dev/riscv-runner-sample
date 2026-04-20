@@ -9,6 +9,7 @@ jobs:
   hello:
     runs-on: ${{ matrix.runs-on }}
     strategy:
+      fail-fast: false
       matrix:
         runs-on: [ubuntu-24.04-riscv, ubuntu-24.04]
     steps:
@@ -17,6 +18,7 @@ jobs:
   debug:
     runs-on: ${{ matrix.runs-on }}
     strategy:
+      fail-fast: false
       matrix:
         runs-on: [ubuntu-24.04-riscv, ubuntu-24.04, ubuntu-24.04-arm]
     env:
@@ -83,6 +85,7 @@ jobs:
   debug-container:
     runs-on: ${{ matrix.runs-on }}
     strategy:
+      fail-fast: false
       matrix:
         runs-on:
           # - ubuntu-24.04-riscv # we need to have unified dind and runner image for it to work properly
@@ -105,6 +108,7 @@ jobs:
   setup-python:
     runs-on: ${{ matrix.runs-on }}
     strategy:
+      fail-fast: false
       matrix:
         runs-on: [ubuntu-24.04-riscv, ubuntu-24.04]
         python-version:
@@ -140,6 +144,7 @@ jobs:
   setup-python-upstream:
     runs-on: ${{ matrix.runs-on }}
     strategy:
+      fail-fast: false
       matrix:
         runs-on: [ubuntu-24.04-riscv, ubuntu-24.04]
         python-version:
@@ -175,6 +180,7 @@ jobs:
   sccache:
     runs-on: ${{ matrix.runs-on }}
     strategy:
+      fail-fast: false
       matrix:
         runs-on: [ubuntu-24.04, ubuntu-24.04-riscv]
     steps:
