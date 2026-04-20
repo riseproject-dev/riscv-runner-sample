@@ -25,6 +25,7 @@ jobs:
       GITHUB_CONTEXT: ${{ toJson(github) }}
       # RUNNER_CONTEXT: ${{ toJson(runner) }}
     steps:
+      - run: id
       - run: ps aux --forest
       - run: cat /etc/hostname
       - run: printenv
