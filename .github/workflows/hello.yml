@@ -26,6 +26,8 @@ jobs:
       # RUNNER_CONTEXT: ${{ toJson(runner) }}
     steps:
       - run: id
+      - run: cat /etc/passwd
+      - run: cat /etc/group-
       - run: ps aux --forest
       - run: cat /etc/hostname
       - run: printenv
