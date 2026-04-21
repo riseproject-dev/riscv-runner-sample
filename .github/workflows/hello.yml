@@ -214,3 +214,17 @@ jobs:
           cmake --build build --verbose
           ./build/hello
           sccache --show-adv-stats
+
+  setup-java:
+    runs-on: ${{ matrix.runs-on }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runs-on: [ubuntu-24.04, ubuntu-24.04-riscv]
+        java-version: [17, 21, 25]
+    steps:
+      - name: Set up JDK ${{ matrix.java-version }}
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          java-version: ${{ matrix.java-version }}
+          distribution: temurin
