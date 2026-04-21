@@ -211,7 +211,7 @@ jobs:
           set -eux -o pipefail
           which sccache
           sccache --version
-          cd sccache-demo
+          cd ccache-demo
           cmake -B build
           cmake --build build --verbose
           ./build/hello
