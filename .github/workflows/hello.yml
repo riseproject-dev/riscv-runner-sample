@@ -192,7 +192,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        runs-on: [ubuntu-24.04, ubuntu-24.04-riscv]
+        runs-on:
+          - ubuntu-24.04
+          # - ubuntu-24.04-riscv # https://github.com/mozilla/sccache/issues/2681
     steps:
       - name: Checkout code
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -204,10 +206,6 @@ jobs:
           key: sccache-${{ matrix.runs-on }}
           save: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
 
-      - name: Live Debug
-        if: failure()
-        run: sleep 30d
-
       - name: Build
         run: |
           set -eux -o pipefail
@@ -218,6 +216,35 @@ jobs:
           cmake --build build --verbose
           ./build/hello
           sccache --show-adv-stats
+
+  ccache:
+    runs-on: ${{ matrix.runs-on }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runs-on: [ubuntu-24.04, ubuntu-24.04-riscv]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Configure ccache
+        uses: hendrikmuhs/ccache-action@main
+        with:
+          variant: ccache
+          key: ccache-${{ matrix.runs-on }}
+          save: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+
+      - name: Build
+        run: |
+          set -eux -o pipefail
+          which ccache
+          ccache --version
+          ccache --zero-stats
+          cd ccache-demo
+          cmake -B build
+          cmake --build build --verbose
+          ./build/hello
+          ccache --show-stats -vv
 
   setup-java:
     runs-on: ${{ matrix.runs-on }}
