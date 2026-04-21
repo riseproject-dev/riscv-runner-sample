@@ -204,6 +204,10 @@ jobs:
           key: sccache-${{ matrix.runs-on }}
           save: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
 
+      - name: Live Debug
+        if: failure()
+        run: sleep 30d
+
       - name: Build
         run: |
           set -eux -o pipefail
