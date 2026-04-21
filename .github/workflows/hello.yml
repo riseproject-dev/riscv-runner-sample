@@ -259,3 +259,4 @@ jobs:
         with:
           java-version: ${{ matrix.java-version }}
           distribution: temurin
+      - run: java -version
