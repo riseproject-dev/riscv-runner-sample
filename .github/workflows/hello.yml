@@ -35,6 +35,8 @@ jobs:
       - run: printenv
       - run: dpkg --list
       - run: apt-mark showmanual
+      - run: ls -alh /usr/local
+      - run: ls -alh /usr/local/bin
       - run: ls -alh /opt/hostedtoolcache
       - run: ls -alh /opt/hostedtoolcache/Python || true
       - run: ls -alh /opt/hostedtoolcache/Python/*.*.* || true
