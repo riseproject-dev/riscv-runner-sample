@@ -276,3 +276,13 @@ jobs:
         with:
           go-version: ${{ matrix.go-version }}
       - run: go version
+
+  docker:
+    runs-on: ${{ matrix.runs-on }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runs-on: [ubuntu-24.04-riscv, ubuntu-24.04]
+    steps:
+      - run: docker ps
+      - run: docker run --rm -it ubuntu:latest uname -m
