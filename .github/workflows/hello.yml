@@ -99,10 +99,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        runs-on:
-          - ubuntu-24.04-riscv
-          - ubuntu-24.04
-          - ubuntu-24.04-arm
+        runs-on: [ubuntu-24.04-riscv, ubuntu-24.04, ubuntu-24.04-arm]
+        python-version: [3.12, 3.13]
     container: ubuntu:24.04
     env:
       GITHUB_CONTEXT: ${{ toJson(github) }}
@@ -111,10 +109,10 @@ jobs:
       - run: printenv
       - run: dpkg --list
       - run: find /__e -maxdepth 3
-      - name: Setup Python 3.12
+      - name: Setup Python ${{ matrix.python-version }}
         uses: riseproject-dev/setup-python@main
         with:
-          python-version: 3.12
+          python-version: ${{ matrix.python-version }}
           mirror: ${{ matrix.runs-on == 'ubuntu-24.04-riscv' && 'https://raw.githubusercontent.com/riseproject-dev/python-versions/main' || '' }}
 
   setup-python:
