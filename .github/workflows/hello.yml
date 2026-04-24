@@ -42,7 +42,7 @@ jobs:
       - run: ls -alh /opt/hostedtoolcache/Python/*.*.* || true
       - run: ls -alh /opt/hostedtoolcache/Python/*.*.*/{x64,riscv64}/bin || true
       - run: readelf -d /opt/hostedtoolcache/Python/3.{12,13,14}.*/{x64,riscv64}/bin/python3 || true
-      - run: sudo find /opt -maxdepth 5
+      - run: sudo find /opt -maxdepth 5 -printf '%M %u:%g %p\n'
       - run: find /home/runner -maxdepth 5
       - run: find /home/runner/actions-runner/cached/2.*.*/externals -maxdepth 3 || true
       - run: >-
