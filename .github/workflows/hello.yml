@@ -286,3 +286,12 @@ jobs:
     steps:
       - run: docker ps
       - run: docker run --rm ubuntu:latest uname -m
+
+  apt:
+    runs-on: ${{ matrix.runs-on }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runs-on: [ubuntu-24.04, ubuntu-24.04-riscv]
+    steps:
+      - run: sudo apt update && sudo apt install -y vim
