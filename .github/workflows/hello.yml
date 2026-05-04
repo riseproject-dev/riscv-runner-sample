@@ -100,9 +100,8 @@ jobs:
       fail-fast: false
       matrix:
         runs-on:
-          # - ubuntu-24.04-riscv # we need to have unified dind and runner image for it to work properly
+          - ubuntu-24.04-riscv
           - ubuntu-24.04
-          - ubuntu-24.04-arm
     container: ubuntu:24.04
     env:
       GITHUB_CONTEXT: ${{ toJson(github) }}
@@ -116,6 +115,10 @@ jobs:
         with:
           python-version: 3.12
           mirror: ${{ matrix.runs-on == 'ubuntu-24.04-riscv' && 'https://raw.githubusercontent.com/riseproject-dev/python-versions/main' || '' }}
+      - run: |
+          apt-get update
+          apt-get install -y --no-install-recommends bind9-dnsutils
+          nslookup google.com
 
   setup-python:
     runs-on: ${{ matrix.runs-on }}
@@ -286,6 +289,12 @@ jobs:
     steps:
       - run: docker ps
       - run: docker run --rm ubuntu:latest uname -m
+      - run: |
+          docker run --rm --interactive ubuntu:latest bash <<EOF
+          apt-get update
+          apt-get install -y --no-install-recommends bind9-dnsutils
+          nslookup google.com
+          EOF
 
   apt:
     runs-on: ${{ matrix.runs-on }}
