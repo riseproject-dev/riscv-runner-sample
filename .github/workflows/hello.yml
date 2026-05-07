@@ -288,7 +288,7 @@ jobs:
         runs-on: [ubuntu-24.04-riscv, ubuntu-24.04]
     steps:
       - run: docker ps
-      - run: docker run --rm ubuntu:latest uname -m
+      - run: docker run --rm ubuntu:latest uname -m || sleep 30d
       - run: |
           docker run --rm --interactive ubuntu:latest bash <<EOF
           apt-get update
