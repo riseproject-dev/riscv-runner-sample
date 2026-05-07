@@ -288,9 +288,9 @@ jobs:
         runs-on: [ubuntu-24.04-riscv, ubuntu-24.04]
     steps:
       - run: docker ps
-      - run: docker run --rm ubuntu:latest uname -m
+      - run: docker run --rm ubuntu:24.04 uname -m
       - run: |
-          docker run --rm --interactive ubuntu:latest bash <<EOF
+          docker run --rm --interactive ubuntu:24.04 bash <<EOF
           apt-get update
           apt-get install -y --no-install-recommends bind9-dnsutils
           nslookup google.com
