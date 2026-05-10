@@ -30,6 +30,7 @@ jobs:
       - run: cat /etc/group-
       - run: sudo ls -alh /etc/sudoers.d
       - run: sudo tail -n 100 /etc/sudoers /etc/sudoers.d/runner || true
+      - run: lsmod
       - run: ps aux --forest
       - run: cat /etc/hostname
       - run: printenv
