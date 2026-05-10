@@ -54,6 +54,7 @@ jobs:
           java
           python3
           python
+          ninja
           gh
           kubectl
           ninja
@@ -69,6 +70,7 @@ jobs:
           java
           python3
           python
+          ninja
           gh
           kubectl
           ninja
@@ -85,6 +87,7 @@ jobs:
           java
           python3
           python
+          ninja
           gh
           kubectl
           ninja
